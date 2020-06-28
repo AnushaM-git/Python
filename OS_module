@@ -14,3 +14,15 @@ for root_dir, sub_dir, files in os.walk(cur_path):
     
     ===============================================================================================================
     
+    Q)  Write a Python program to list only directories, files and all directories, files in a specified path.
+    ANS)
+    import os
+    cur_path=os.getcwd()
+    print(cur_path)
+    for name in os.listdir(cur_path):
+        if os.path.isdir(name):
+             print(f"This is directory :{name}")
+        else:
+             print(f"This is a file: {name}")
+    print(os.listdir(cur_path))
+    
