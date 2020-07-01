@@ -1,0 +1,15 @@
+import os
+path= input("enter the path of the folder: ")
+if os.path.isfile(path):
+    print(f"provide path {path} is not a directory , please enter correct path")
+else:
+    all_f= os.listdir(path) # list put files, dirs from that path
+    if len(all_f) !=0: # checking if the provided provided path id not empty
+        exten= input("please enter extension of file :") # enter extension of the file yo want to get
+        for i in all_f:
+            if os.path.splitext(i)[1] == exten: # checking provided extension is equal to extension of the files in all_f
+                print(i)
+        if os.path.splitext(i)[1] != exten: # checking is the file extensio not matches
+            print(f"{exten} file is not available in ths path")
+    else:
+        print("no files in this path") # print if provide path is empty
