@@ -1,0 +1,28 @@
+import paramiko
+
+
+ssh= paramiko.SSHClient()
+print('creating client')
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+print("loading know hosts")
+with open("C:\\Users\\ANUSHA\\Desktop\\python practice\\passwords.txt","r") as passwordfile: # f=open(sys.argv[1],"r") to provide password files as an command line argument
+    for line in passwordfile.readlines():  # for line in f.readlines():
+        user_pass= line.strip().split(":") # same from this line onwards
+        user=user_pass[0]
+        pas=user_pass[1]
+try:
+    ssh.connect(hostname='192.168.46.132',port=22,username=user,password=pas)
+    print("establishing connection")
+
+except paramiko.ssh_exception.AuthenticationException as e:
+    print(f" wrong username/paswword provided: {e}")
+
+else:
+    stdint,stdout,stderr= ssh.exec_command('ls -ltr /root')
+    output=stdout.readlines()
+    print(output)
+    for i in output:
+       print(i)
+    
+finally:
+    ssh.close()
