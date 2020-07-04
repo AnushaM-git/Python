@@ -1,0 +1,41 @@
+import paramiko
+import time
+
+output_file = open('C:\\Users\\ANUSHA\\Desktop\\python practice\\output.txt','w')
+error_file = open('C:\\Users\\ANUSHA\\Desktop\\python practice\\error.txt','w')
+
+
+ssh = paramiko.SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+
+with open("C:\\Users\\ANUSHA\\Desktop\\python practice\\passwords.txt", "r") as file:
+    for line in file.readlines():
+        hup = line.strip().split(":")
+        host = hup[0]
+        user = hup[1]
+        passwd = hup[2]
+        try:
+            ssh.connect(hostname=host,username=user,password=passwd)
+            terminal = ssh.invoke_shell()
+            terminal.send('junk')
+            terminal.send('\n')
+            time.sleep(5)
+            print(terminal.recv(9999).decode('utf-8'))
+            command='ifconfig'
+            stdin,stdout,stderr= ssh.exec_command(command)
+            for line in stdout.readlines():
+                 output_file.write(f"successfully connected to {host}  and output of command is " + line)
+            for line in stderr.readlines():
+                error_file.write(f"Error while executing command " + line + host +"\n")
+
+            terminal.send('exit')
+            terminal.send('\n')
+            ssh.close()
+        except FileNotFoundError as e:
+            print(f"provide file path is not found : {e}")
+        except paramiko.ssh_exception.AuthenticationException as e:
+            print(f"wrong usename/password entered: {e}")
+
+output_file.close()
+error_file.close()
+file.close()
