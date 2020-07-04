@@ -8,7 +8,7 @@ error_file = open('C:\\Users\\ANUSHA\\Desktop\\python practice\\error.txt','w')
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
-with open("C:\\Users\\ANUSHA\\Desktop\\python practice\\passwords.txt", "r") as file:
+with open("C:\\Users\\ANUSHA\\Desktop\\python practice\\input.txt", "r") as file:
     for line in file.readlines():
         hup = line.strip().split(":")
         host = hup[0]
