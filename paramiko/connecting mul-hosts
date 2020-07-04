@@ -36,6 +36,6 @@ with open("C:\\Users\\ANUSHA\\Desktop\\python practice\\input.txt", "r") as file
         except paramiko.ssh_exception.AuthenticationException as e:
             print(f"wrong usename/password entered: {e}")
 
-output_file.close()
+output_file.close() # closing opening file 
 error_file.close()
 file.close()
