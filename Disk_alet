@@ -1,0 +1,17 @@
+import psutil
+threshold = 80
+file = "C:\\Users\\ANUSHA\\Desktop\\python practice\\output.txt"
+path= input("Please, Enter the path:")
+def disk_alert(path):
+    usage = psutil.disk_usage(path)
+    if usage.percent >= threshold:
+        with open(file, 'w') as f:
+            f.write(f"Disk uage exceeded the threshold value. Please check and clear the space under {path}  file system \n ")
+            f.write(f"Precentage of used disk : {usage.percent} % \n")
+            f.write(f"Total disk space : {(usage.total // (2**30))} GiB \n ")
+            f.write(f"Used disk space : {(usage.used // (2**30))} GiB \n")
+            f.write(f"Free disk space : {(usage.free // (2 ** 30))} GiB \n")
+    return None
+
+if __name__ == '__main__':
+    disk_alert(path) 
