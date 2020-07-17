@@ -1,0 +1,14 @@
+import os
+folder= input("Please, Enter the folder path:")
+def getFolderSize(folder):
+    total_size = os.path.getsize(folder)
+    for item in os.listdir(folder):
+        itempath = os.path.join(folder, item)
+        if os.path.isfile(itempath):
+            total_size += os.path.getsize(itempath)
+        elif os.path.isdir(itempath):
+            total_size += getFolderSize(itempath)
+    return (total_size/1024)
+
+output= getFolderSize(folder)
+print(f"size of the path: {output} KB")
