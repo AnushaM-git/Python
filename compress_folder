@@ -1,0 +1,15 @@
+# compress the folder
+import os
+import zipfile
+def do_compress(source_folder, target_zip):
+    zip_file = zipfile.ZipFile(target_zip, "w")
+    for subdir, dirs, files in os.walk(source_folder):
+        for file in files:
+            zip_file.write(os.path.join(subdir, file))
+    print(f"Created target_zip file {target_zip}")
+
+if __name__ == '__main__':
+     # compress to zip
+    source_folder = "/opt"
+    target_zip = "/opt/compressed.zip"
+    do_compress(source_folder, target_zip)
